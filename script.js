@@ -61,39 +61,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
   form.addEventListener("submit", handleSubmit); // Handle default submit (e.g., pressing enter)
-
-  const infoText = [
-    "Line 1 text",
-    "Line 2 text",
-    "Line 3 text"
-  ];
-
-  function createLine(i) { // Create each line separately, one at a time
-    if (i < infoText.length) { // Check if the line exists
-      let newBubble3Container = document.createElement("div");
-      newBubble3Container.classList.add("chat-bubble-container", "wouter-bubble-container");
-
-      let newBubble3 = document.createElement("div");
-      newBubble3.classList.add("chat-bubble", "wouter-bubble");
-      let currentLineText = infoText[i];
-      let currentWord = 0;
-      let singleLineLoop = setInterval(() => { // Loop over the words to simulate typing behavior
-        if (currentWord < currentLineText.length) {
-          currentWord += Math.floor(Math.random() * 10) + 5; // Return between 5 and 15 characters
-          newBubble3.innerHTML = currentLineText.slice(0, currentWord) + "█"; // While typing, end the string with a block character
-        } else {
-          newBubble3.innerHTML = currentLineText; // When finished, put the entire response in the bubble without the block character
-          clearInterval(singleLineLoop);
-          form.scrollIntoView();
-          userInput.focus(); // Focus the input again, so the user can type a new response
-          createLine(i + 1); // Call this function again using i+1 so the next line is created
-        }
-      }, 80);
-
-      newBubble3Container.appendChild(newBubble3);
-      chatArea.appendChild(newBubble3Container);
-    }
-  }
-
-  createLine(0); // Start creating the response with the first line
 });
