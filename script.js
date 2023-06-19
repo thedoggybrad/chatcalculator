@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
           showResponse("Sorry, I couldn't evaluate the equation. I only accept the four basic operations using the symbols +, -, * and /. Also do not include a word in your equations.");
         }
       } else {
-        showResponse("Sorry, I can only handle the 4 basic mathematical equations.");
+        showResponse("Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /.");
       }
     }
   }
