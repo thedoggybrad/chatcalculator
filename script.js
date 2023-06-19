@@ -40,6 +40,11 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function isMathematicalEquation(input) {
+    // Replace 'x' with '*'
+  input = input.replace(/x/g, '*');
+  // Replace '•' with '×'
+  input = input.replace(/•/g, '×');
+
     // Regular expression to match mathematical equations
     const equationRegex = /^[\d+\-*/%()\s]+$/;
     return equationRegex.test(input);
