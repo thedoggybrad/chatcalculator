@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", function() {
           // Show the result in a chat bubble
           showResponse(result);
         } catch (error) {
-          showResponse("Sorry, I couldn't evaluate the equation.");
+          showResponse("Sorry, I couldn't evaluate the equation. I only accept the four basic operations using the symbols +, -, * and /. Also do not include a word in your equations.");
         }
       } else {
-        showResponse("Sorry, I can only handle mathematical equations.");
+        showResponse("Sorry, I can only handle the 4 basic mathematical equations.");
       }
     }
   }
@@ -61,16 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
   form.addEventListener("submit", handleSubmit); // Handle default submit (e.g., pressing enter)
-
-  const infoText = [
-    "Hi! I'm TheDoggyBrad. I made this site just for fun.",
-    "To be clear: this site does not actually use ChatGPT or any other form of AI. It just returns a random number of aws. Nothing is done with your input either.",
-    'If you want to know more, <a href="https://github.com/thedoggybrad/dogpt/" target="_blank">check out the code on Github</a>.',
-    'By the way, this is distributed using The Unlicensed, <a href="https://github.com/thedoggybrad/dogpt/blob/master/license" target="_blank">which can be visited here</a>.',
-    'Enjoy using the "DogGPT!"'
-  ]; // Lines of the information chat
-
-  infoBtn.addEventListener("click", handleInfoClick); // Handle clicks to the info link
 
   function handleInfoClick() {
     // Create a chat-bubble-container
