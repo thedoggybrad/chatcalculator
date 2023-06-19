@@ -40,27 +40,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function isMathematicalEquation(input) {
-    // Replace 'x' with '*'
-    input = input.replace(/x/g, '*');
-    // Replace '•' with '×'
-    input = input.replace(/•/g, '*');
-
-    // Addition Word Operators
-    input = input.replace(/add/gi, '+');
-    input = input.replace(/plus/gi, '+');
-
-    // Subtraction Word Operators
-    input = input.replace(/minus/gi, '-');
-    input = input.replace(/subtract/gi, '-');
-  
-    // Multiplication Word Operators
-    input = input.replace(/multiply/gi, '*');
-    input = input.replace(/times/gi, '*');
-
-    // Division Word Operators
-    input = input.replace(/divide/gi, '/');
-    input = input.replace(/divided\s+by/gi, '/');
-
     // Regular expression to match mathematical equations
     const equationRegex = /^[\d+\-*/%()\s]+$/;
     return equationRegex.test(input);
