@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function isMathematicalEquation(input) {
     // Regular expression to match mathematical equations
-    const equationRegex = /^[\d+\-*/%()\s]+$/;
+    const equationRegex = /^[\d+\-*/%().\s]+$/; // Updated regex to allow decimal values
     return equationRegex.test(input);
   }
 
