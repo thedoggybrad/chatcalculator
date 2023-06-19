@@ -16,4 +16,4 @@ It supports both integers (positive or negative values) and decimal numbers.
 ## Demo
 Try Chat Calculator on https://thedoggybrad.github.io/chatcalculator
 <br>
-Experience a calculator in a chat.
+Experience a basic 4 operations calculator in a chat.
