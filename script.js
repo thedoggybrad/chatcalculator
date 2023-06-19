@@ -62,11 +62,6 @@ document.addEventListener("DOMContentLoaded", function() {
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
   form.addEventListener("submit", handleSubmit); // Handle default submit (e.g., pressing enter)
 
-  function handleInfoClick() {
-    // Create a chat-bubble-container
-    let newBubble3Container = document.createElement("div");
-    newBubble3Container.classList.add("chat-bubble-container", "wouter-bubble-container");
-
     function createLine(i) { // Create each line separately, one at a time
       if (i < infoText.length) { // Check if the line exists
         let newBubble3 = document.createElement("div");
