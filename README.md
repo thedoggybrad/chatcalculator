@@ -12,6 +12,3 @@ Usage of words are not allowed and it will be just refused by the software. Also
 Try Chat Calculator on https://thedoggybrad.github.io/chatcalculator
 <br>
 Experience a calculator in a chat.
-
-## Notice
-This software is still under construction and many references still refer to DogGPT.
