@@ -170,23 +170,10 @@ body {
   cursor: pointer;
 }
 
-.disclaimer {
+.footer {
   font-size: 0.8em;
   text-align: center;
   color: #757575;
-  padding: 0px 0.5em;
-  margin: 0.3em;
-}
-
-.disclaimer a {
-  color: #818f7b;
-}
-
-.footer {
-  font-size: 0.7em;
-  text-align: center;
-  color: #757575;
-  font-style: italic;
   padding: 0px 0.5em;
   margin: 0.3em;
 }
