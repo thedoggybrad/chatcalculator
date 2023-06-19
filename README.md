@@ -1,4 +1,4 @@
-# DogGPT
+# ChatMath - INCOMPLETE
 ChatGPT is great and even passes a lot of exams worldwide. But ChatGPT is boring.
 So, I want a dog to answer my questions. So here is DogGPT.
 <br>
