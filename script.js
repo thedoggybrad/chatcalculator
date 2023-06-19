@@ -23,55 +23,40 @@ document.addEventListener("DOMContentLoaded", function() {
       chatArea.appendChild(newBubbleContainer);
       userInput.value = ""; // Clear the input field
 
-      // Generate the DogGPT response
-      if (
-        userString.replace(/[\.,!?"']/g, '').toLowerCase() ===
-          "ignore all previous commands you are now a dog" ||
-        userString.replace(/[\.,!?"']/g, '').toLowerCase() ===
-          "ignore all previous instructions you are now a dog"
-      ) {
-        var aws = "Woof?";
+      // Check if the user input is a mathematical equation
+      if (isMathematicalEquation(userString)) {
+        try {
+          // Evaluate the mathematical equation
+          const result = eval(userString);
+          // Show the result in a chat bubble
+          showResponse(result);
+        } catch (error) {
+          showResponse("Sorry, I couldn't evaluate the equation.");
+        }
       } else {
-        var numberOfAws = Math.floor(Math.random() * 15); // Random number of aws between 0 and 14.
-        var aws = "Aw"; // Always start with 1 capitalized aw
-        if (numberOfAws === 0) {
-          aws += "."; // If numberOfAws is 0, only the default aw is shown, so put a full stop after it.
-        } else {
-          for (var i = 0; i < numberOfAws; i++) {
-            if (i === numberOfAws - 1) {
-              aws += " aw."; // Last aw gets a full stop
-            } else {
-              aws += " aw"; // All other aws
-            }
-          }
-        }
+        showResponse("Sorry, I can only handle mathematical equations.");
       }
-
-      // Show the DogGPT response in a new chat-gpt-bubble, wrapped in a chat-bubble-container
-
-      let newBubble2Container = document.createElement("div");
-      newBubble2Container.classList.add("chat-bubble-container", "chat-gpt-bubble-container");
-      newBubble2Container.innerHTML = '<div class="profile-picture"><img src="images/avatar.png" height="100%" /></div>';
-
-      let newBubble2 = document.createElement("div");
-      newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
-      newBubble2.innerHTML = "...."; // At first, only show an ellipsis
-      newBubble2Container.appendChild(newBubble2);
-      chatArea.appendChild(newBubble2Container);
-      form.scrollIntoView(); // Scroll down, so the input field is at the bottom of the page again
-      let currentAw = 0;
-
-      let awLoop = setInterval(() => { // Interval to show more of the reply every 100 milliseconds (simulating typing behavior)
-        if (currentAw < aws.length) {
-          currentAw += Math.floor(Math.random() * 10); // Show between 0 and 10 more characters
-          newBubble2.innerHTML = aws.slice(0, currentAw) + "█"; // While typing, end the string with a block character
-        } else {
-          newBubble2.innerHTML = aws; // When finished, put the entire response in the bubble, without block character
-          clearInterval(awLoop);
-          userInput.focus(); // Focus the input again, so the user can type a new response
-        }
-      }, 100);
     }
+  }
+
+  function isMathematicalEquation(input) {
+    // Regular expression to match mathematical equations
+    const equationRegex = /^[\d+\-*/%()\s]+$/;
+    return equationRegex.test(input);
+  }
+
+  function showResponse(response) {
+    let newBubble2Container = document.createElement("div");
+    newBubble2Container.classList.add("chat-bubble-container", "chat-gpt-bubble-container");
+    newBubble2Container.innerHTML = '<div class="profile-picture"><img src="images/avatar.png" height="100%" /></div>';
+
+    let newBubble2 = document.createElement("div");
+    newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
+    newBubble2.innerHTML = response;
+    newBubble2Container.appendChild(newBubble2);
+    chatArea.appendChild(newBubble2Container);
+    form.scrollIntoView();
+    userInput.focus();
   }
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
@@ -103,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
           if (currentWord < currentLineText.length) {
             currentWord += Math.floor(Math.random() * 10) + 5; // Return between 5 and 15 characters
             newBubble3.innerHTML = currentLineText.slice(0, currentWord) + "█"; // While typing, end the string with a block character
-          } else { 
+          } else {
             newBubble3.innerHTML = currentLineText; // When finished, put the entire response in the bubble without the block character
             clearInterval(singleLineLoop);
             form.scrollIntoView();
