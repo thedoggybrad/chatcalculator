@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Create a chat-bubble-container
     let newBubble3Container = document.createElement("div");
     newBubble3Container.classList.add("chat-bubble-container", "wouter-bubble-container");
-    newBubble3Container.innerHTML = '<div class="profile-picture"><img src="images/thedoggybrad.jpeg" height="100%" /></div>';
 
     function createLine(i) { // Create each line separately, one at a time
       if (i < infoText.length) { // Check if the line exists
