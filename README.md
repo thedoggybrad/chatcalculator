@@ -6,7 +6,7 @@ A basic calculator that can handle many digits and the 4 basic operations (Addit
 •3 + 3<br>
 •3+ 3<br>
 •3 +3 <br><br>
-Usage of words are not allowed and it will be just refused by the software.
+Usage of words are not allowed and it will be just refused by the software. Also, adding unnecessary characters like the equals sign will cause a refusal from the software.
 
 ## Demo
 Try Chat Calculator on https://thedoggybrad.github.io/chatcalculator
