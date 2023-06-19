@@ -1,4 +1,4 @@
-# Chat Calculator - INCOMPLETE
+# ChatCalculator - INCOMPLETE
 A basic calculator that can handle many digits and the 4 basic operations (Addition, Subtraction, Multiplication and Division) via the symbols (+, -, * or /) only.
 
 ## Format of Accepted Equations
