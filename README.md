@@ -4,3 +4,6 @@ A basic calculator that can handle many digits and the 4 basic operations (Addit
 ## Demo
 Try Chat Calculator on https://thedoggybrad.github.io/chatcalculator
 <br>
+
+## Notice
+This software is still under construction and many references still refer to DogGPT.
