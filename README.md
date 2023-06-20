@@ -17,3 +17,6 @@ It supports both integers (positive or negative values) and decimal numbers.
 Try Chat Calculator on https://thedoggybrad.github.io/chatcalculator
 <br>
 Experience the basic 4 operations calculator in a chat.
+
+## A short history
+I developed DogGPT which is a fork of CatGPT, then I using ChatGPT I made a fork of my own DogGPT to become ChatMath. The name "ChatMath" is not visible to you anymore because it is now "ChatCalculator". This can only handle the Negative and Postiive Values at first without the support for decimals. Later on, support for decimals was added due to ChatGPT's help.
