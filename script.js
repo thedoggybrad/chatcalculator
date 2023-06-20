@@ -53,40 +53,28 @@ document.addEventListener("DOMContentLoaded", function() {
     let newBubble2 = document.createElement("div");
     newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
 
+    // Split the response into an array of characters
+    const characters = response.split('');
+
+    // Display each character with a delay
+    let index = 0;
+    const delay = 100; // Adjust this value to change the delay between each character
+
+    function displayCharacter() {
+      newBubble2.innerHTML += characters[index];
+      index++;
+
+      if (index < characters.length) {
+        setTimeout(displayCharacter, delay);
+      }
+    }
+
+    displayCharacter();
+
     newBubble2Container.appendChild(newBubble2);
     chatArea.appendChild(newBubble2Container);
     form.scrollIntoView();
     userInput.focus();
-
-    // Split the response text into individual characters
-    const characters = response.split('');
-
-    // Function to gradually show the characters
-    function showNextCharacter(index) {
-      if (index < characters.length) {
-        // Add the next character to the response bubble
-        newBubble2.innerHTML += characters[index];
-
-        // Scroll the chat area to the bottom
-        chatArea.scrollTop = chatArea.scrollHeight;
-
-        // Recursively call the function to show the next character
-        setTimeout(function() {
-          showNextCharacter(index + 1);
-        }, 100); // Adjust the timing between each character if needed
-      } else {
-        // Remove the typing indicator after showing all characters
-        newBubble2.removeChild(typingIndicator);
-      }
-    }
-
-    // Add the typing indicator element after showing the response
-    const typingIndicator = document.createElement("span");
-    typingIndicator.classList.add("typing-indicator");
-    newBubble2.appendChild(typingIndicator);
-
-    // Start showing the characters
-    showNextCharacter(0);
   }
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
