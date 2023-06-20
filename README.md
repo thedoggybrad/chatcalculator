@@ -28,4 +28,4 @@ It supports integers (positive or negative values), decimal numbers and commas s
 And those that are similar to this methods. Combination of thia are acceptable. Make sure to just follow the "Format of Accepted Equations".
 
 ## A short history
-The journey of ChatCalculator started when I developed DogGPT which is a fork of CatGPT.<br> After some time, using ChatGPT I made a fork of my own DogGPT to become ChatMath.<br> The name "ChatMath" is now not visible to you anymore because it is now "ChatCalculator".<br> This can only handle the Negative and Postiive Values at first without the support for decimals.<br>Later on, support for decimals was added due to ChatGPT's help.
+✓The journey of ChatCalculator started when I developed DogGPT which is a fork of CatGPT.<br> ✓After some time, using ChatGPT I made a fork of my own DogGPT to become ChatMath.<br> ✓The name "ChatMath" is now not visible to you anymore because it is now "ChatCalculator".<br> ✓This can only handle the Negative and Postiive Values at first without the support for decimals.<br>✓Later on, support for decimals was added due to ChatGPT's help.
