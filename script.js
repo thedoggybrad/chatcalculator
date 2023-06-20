@@ -29,12 +29,12 @@ document.addEventListener("DOMContentLoaded", function() {
           // Evaluate the mathematical equation
           const result = eval(userString.replace(/,/g, ''));
           // Show the result in a chat bubble
-          showResponse(result); // Pass the result as-is
+          showResponse(userString, result, true); // Pass the user input, response, and enable letter-by-letter effect
         } catch (error) {
-          showResponse("Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ");
+          showResponse(userString, "Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ", false); // Disable letter-by-letter effect
         }
       } else {
-        showResponse("Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ");
+        showResponse(userString, "Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ", false); // Disable letter-by-letter effect
       }
     }
   }
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return equationRegex.test(input);
   }
 
-  function showResponse(response) {
+  function showResponse(userInput, response, enableLetterByLetter) {
     let newBubble2Container = document.createElement("div");
     newBubble2Container.classList.add("chat-bubble-container", "chat-gpt-bubble-container");
     newBubble2Container.innerHTML = '<div class="profile-picture"><img src="images/avatar.png" height="100%" /></div>';
@@ -53,37 +53,45 @@ document.addEventListener("DOMContentLoaded", function() {
     let newBubble2 = document.createElement("div");
     newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
 
-    const formattedResponse = formatNumberWithCommas(response); // Format the response with comma separators
+    // Combine the user input and response for display
+    const conversation = userInput + "<br>" + response;
 
-    // Split the response into an array of characters
-    const characters = formattedResponse.split('');
+    const formattedConversation = formatNumberWithCommas(conversation); // Format the conversation with comma separators
 
-    // Display each character with a delay
-    let index = 0;
-    let delay = 100; // Default delay value
+    if (enableLetterByLetter) {
+      // Split the conversation into an array of characters
+      const characters = formattedConversation.split('');
 
-    if (response === "Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ") {
-      delay = 25;
-    } else if (response === "Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ") {
-      delay = 25;
-    }
+      // Display each character with a delay
+      let index = 0;
+      let delay = 100; // Default delay value
 
-    function displayCharacter() {
-      newBubble2.innerHTML += characters[index];
-      index++;
-
-      if (index < characters.length) {
-        setTimeout(displayCharacter, delay);
+      if (response === "Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ") {
+        delay = 25;
+      } else if (response === "Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ") {
+        delay = 25;
       }
-    }
 
-    displayCharacter();
+      function displayCharacter() {
+        newBubble2.innerHTML += characters[index];
+        index++;
+
+        if (index < characters.length) {
+          setTimeout(displayCharacter, delay);
+        }
+      }
+
+      displayCharacter();
+    } else {
+      // Show the complete conversation without letter-by-letter effect
+      newBubble2.innerHTML = formattedConversation;
+    }
 
     newBubble2Container.appendChild(newBubble2);
     chatArea.appendChild(newBubble2Container);
 
-    // Store the response in a cookie
-    storeConversation(response);
+    // Store the conversation in a cookie
+    storeConversation(userInput, response);
 
     form.scrollIntoView();
     userInput.focus();
@@ -109,13 +117,16 @@ document.addEventListener("DOMContentLoaded", function() {
     return formattedNumber;
   }
 
-  function storeConversation(response) {
+  function storeConversation(userInput, response) {
     let conversations = getStoredConversations();
 
-    conversations.push(response);
+    // Combine the user input and response as a single conversation entry
+    const conversation = userInput + "<br>" + response;
+
+    conversations.push(conversation);
 
     // Set the conversations in a cookie
-    setCookie('thedoggybrad-chatcalcu', JSON.stringify(conversations), 3650); // Set expiration to 10 years
+    setCookie('thedoggybrad-chatcalcu', JSON.stringify(conversations), 30); // Set expiration to 30 days
   }
 
   function getStoredConversations() {
@@ -159,7 +170,10 @@ document.addEventListener("DOMContentLoaded", function() {
   // Display previous conversations on page load
   const conversations = getStoredConversations();
   for (let i = 0; i < conversations.length; i++) {
-    showResponse(conversations[i]);
+    const conversationParts = conversations[i].split("<br>");
+    const userInput = conversationParts[0];
+    const response = conversationParts[1];
+    showResponse(userInput, response, false); // Disable letter-by-letter effect for stored conversations
   }
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
