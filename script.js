@@ -53,28 +53,40 @@ document.addEventListener("DOMContentLoaded", function() {
     let newBubble2 = document.createElement("div");
     newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
 
-    // Modify the response to add the block character at the end
-    newBubble2.innerHTML = response;
-
     newBubble2Container.appendChild(newBubble2);
     chatArea.appendChild(newBubble2Container);
     form.scrollIntoView();
     userInput.focus();
+
+    // Split the response text into individual characters
+    const characters = response.split('');
+
+    // Function to gradually show the characters
+    function showNextCharacter(index) {
+      if (index < characters.length) {
+        // Add the next character to the response bubble
+        newBubble2.innerHTML += characters[index];
+
+        // Scroll the chat area to the bottom
+        chatArea.scrollTop = chatArea.scrollHeight;
+
+        // Recursively call the function to show the next character
+        setTimeout(function() {
+          showNextCharacter(index + 1);
+        }, 100); // Adjust the timing between each character if needed
+      } else {
+        // Remove the typing indicator after showing all characters
+        newBubble2.removeChild(typingIndicator);
+      }
+    }
 
     // Add the typing indicator element after showing the response
     const typingIndicator = document.createElement("span");
     typingIndicator.classList.add("typing-indicator");
     newBubble2.appendChild(typingIndicator);
 
-    // Calculate the width of the response bubble including the typing indicator
-    const bubbleWidth = newBubble2.offsetWidth;
-    typingIndicator.style.marginLeft = bubbleWidth + "px";
-    typingIndicator.style.visibility = "visible";
-
-    // Remove the typing indicator after a delay (e.g., 2 seconds)
-    setTimeout(function() {
-      newBubble2.removeChild(typingIndicator);
-    }, 2000);
+    // Start showing the characters
+    showNextCharacter(0);
   }
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
