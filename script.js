@@ -52,7 +52,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let newBubble2 = document.createElement("div");
     newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
-    newBubble2.innerHTML = response;
+
+    // Modify the response to add the block character at the end
+    newBubble2.innerHTML = response.slice(0, -1) + '<span class="typing-indicator">█</span>';
+
     newBubble2Container.appendChild(newBubble2);
     chatArea.appendChild(newBubble2Container);
     form.scrollIntoView();
