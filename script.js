@@ -29,12 +29,12 @@ document.addEventListener("DOMContentLoaded", function() {
           // Evaluate the mathematical equation
           const result = eval(userString.replace(/,/g, ''));
           // Show the result in a chat bubble
-          showResponse(result, true); // Pass the result and enable letter-by-letter effect
+          showResponse(result); // Pass the result as-is
         } catch (error) {
-          showResponse("Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ", false); // Disable letter-by-letter effect
+          showResponse("Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ");
         }
       } else {
-        showResponse("Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ", false); // Disable letter-by-letter effect
+        showResponse("Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ");
       }
     }
   }
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return equationRegex.test(input);
   }
 
-  function showResponse(response, enableLetterByLetter) {
+  function showResponse(response) {
     let newBubble2Container = document.createElement("div");
     newBubble2Container.classList.add("chat-bubble-container", "chat-gpt-bubble-container");
     newBubble2Container.innerHTML = '<div class="profile-picture"><img src="images/avatar.png" height="100%" /></div>';
@@ -55,34 +55,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const formattedResponse = formatNumberWithCommas(response); // Format the response with comma separators
 
-    if (enableLetterByLetter) {
-      // Split the response into an array of characters
-      const characters = formattedResponse.split('');
+    // Split the response into an array of characters
+    const characters = formattedResponse.split('');
 
-      // Display each character with a delay
-      let index = 0;
-      let delay = 100; // Default delay value
+    // Display each character with a delay
+    let index = 0;
+    let delay = 100; // Default delay value
 
-      if (response === "Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ") {
-        delay = 25;
-      } else if (response === "Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ") {
-        delay = 25;
-      }
-
-      function displayCharacter() {
-        newBubble2.innerHTML += characters[index];
-        index++;
-
-        if (index < characters.length) {
-          setTimeout(displayCharacter, delay);
-        }
-      }
-
-      displayCharacter();
-    } else {
-      // Show the complete response without letter-by-letter effect
-      newBubble2.innerHTML = formattedResponse;
+    if (response === "Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ") {
+      delay = 25;
+    } else if (response === "Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ") {
+      delay = 25;
     }
+
+    function displayCharacter() {
+      newBubble2.innerHTML += characters[index];
+      index++;
+
+      if (index < characters.length) {
+        setTimeout(displayCharacter, delay);
+      }
+    }
+
+    displayCharacter();
 
     newBubble2Container.appendChild(newBubble2);
     chatArea.appendChild(newBubble2Container);
@@ -120,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
     conversations.push(response);
 
     // Set the conversations in a cookie
-    setCookie('thedoggybrad-chatcalcu', JSON.stringify(conversations), 30); // Set expiration to 30 days
+    setCookie('thedoggybrad-chatcalcu', JSON.stringify(conversations), 3650); // Set expiration to 10 years
   }
 
   function getStoredConversations() {
@@ -164,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Display previous conversations on page load
   const conversations = getStoredConversations();
   for (let i = 0; i < conversations.length; i++) {
-    showResponse(conversations[i], false); // Disable letter-by-letter effect for stored conversations
+    showResponse(conversations[i]);
   }
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
