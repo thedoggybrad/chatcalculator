@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
           // Evaluate the mathematical equation
           const result = eval(userString);
           // Show the result in a chat bubble
-          showResponse(result);
+          showResponse(result.toString()); // Convert the result to string before displaying
         } catch (error) {
           showResponse("Sorry, I couldn't evaluate the equation. I only accept the four basic operations using the symbols +, -, * and /. Also do not include a word in your equations.");
         }
