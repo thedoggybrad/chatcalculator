@@ -5,10 +5,18 @@ document.addEventListener("DOMContentLoaded", function() {
   const form = document.getElementById('form');
   const infoBtn = document.getElementById('infoBtn');
 
-  function handleSubmit(event) {
-    event.preventDefault(); // Prevent refresh on form submission
+  function evaluateMathematicalEquation(input) {
+    try {
+      const result = math.evaluate(input);
+      return result;
+    } catch (error) {
+      throw new Error("Invalid equation");
+    }
+  }
 
-    // If a user submits input, create a new bubble-container and bubble to show the user input in the chat
+  function handleSubmit(event) {
+    event.preventDefault();
+
     if (userInput.value !== "") {
       let userString = userInput.value;
 
@@ -21,15 +29,12 @@ document.addEventListener("DOMContentLoaded", function() {
       newBubble.innerHTML = userInput.value;
       newBubbleContainer.appendChild(newBubble);
       chatArea.appendChild(newBubbleContainer);
-      userInput.value = ""; // Clear the input field
+      userInput.value = "";
 
-      // Check if the user input is a mathematical equation
       if (isMathematicalEquation(userString)) {
         try {
-          // Evaluate the mathematical equation
-          const result = eval(userString.replace(/,/g, ''));
-          // Show the result in a chat bubble
-          showResponse(result); // Pass the result as-is
+          const result = evaluateMathematicalEquation(userString);
+          showResponse(result);
         } catch (error) {
           showResponse("Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ");
         }
@@ -39,13 +44,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  function formatNumberWithCommas(number) {
-  return number.toLocaleString(undefined, { maximumFractionDigits: 20 });
-}
-
   function isMathematicalEquation(input) {
-    // Regular expression to match mathematical equations
-    const equationRegex = /^[\d+\-*/%().,\s]+$/; // Updated regex to allow decimal values and commas
+    const equationRegex = /^[\d+\-*/%().,\s]+$/;
     return equationRegex.test(input);
   }
 
@@ -57,14 +57,12 @@ document.addEventListener("DOMContentLoaded", function() {
     let newBubble2 = document.createElement("div");
     newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
 
-    const formattedResponse = formatNumberWithCommas(response); // Format the response with comma separators
+    const formattedResponse = formatNumberWithCommas(response);
 
-    // Split the response into an array of characters
     const characters = formattedResponse.split('');
 
-    // Display each character with a delay
     let index = 0;
-    let delay = 100; // Default delay value
+    let delay = 100;
 
     if (response === "Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ") {
       delay = 25;
@@ -90,25 +88,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function formatNumberWithCommas(number) {
-    // Convert the number to a string
-    let numberString = number.toString();
-
-    // Split the number into integer and decimal parts
-    let parts = numberString.split(".");
-    let integerPart = parts[0];
-    let decimalPart = parts[1];
-
-    // Add commas to the integer part
-    let formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-    // Combine the formatted parts and return the result
-    let formattedNumber = formattedIntegerPart;
-    if (decimalPart) {
-      formattedNumber += "." + decimalPart;
-    }
-    return formattedNumber;
+    return number.toLocaleString(undefined, { maximumFractionDigits: 20 });
   }
 
-  sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
-  form.addEventListener("submit", handleSubmit); // Handle default submit (e.g., pressing enter)
+  sendBtn.addEventListener("click", handleSubmit);
+  form.addEventListener("submit", handleSubmit);
 });
