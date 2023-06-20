@@ -54,12 +54,24 @@ document.addEventListener("DOMContentLoaded", function() {
     newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
 
     // Modify the response to add the block character at the end
-    newBubble2.innerHTML = response.slice(0, -1) + '<span class="typing-indicator" style="background-color: #000;">█</span>';
+    newBubble2.innerHTML = response;
 
     newBubble2Container.appendChild(newBubble2);
     chatArea.appendChild(newBubble2Container);
     form.scrollIntoView();
     userInput.focus();
+
+    // Add the typing indicator element after showing the response
+    const typingIndicator = document.createElement("span");
+    typingIndicator.classList.add("typing-indicator");
+    typingIndicator.style.backgroundColor = "#000";
+    typingIndicator.textContent = "█";
+    newBubble2.appendChild(typingIndicator);
+
+    // Remove the typing indicator after a delay (e.g., 2 seconds)
+    setTimeout(function() {
+      newBubble2.removeChild(typingIndicator);
+    }, 2000);
   }
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
