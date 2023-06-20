@@ -64,9 +64,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add the typing indicator element after showing the response
     const typingIndicator = document.createElement("span");
     typingIndicator.classList.add("typing-indicator");
-    typingIndicator.style.backgroundColor = "#000";
-    typingIndicator.textContent = "█";
     newBubble2.appendChild(typingIndicator);
+
+    // Calculate the width of the response bubble including the typing indicator
+    const bubbleWidth = newBubble2.offsetWidth;
+    typingIndicator.style.marginLeft = bubbleWidth + "px";
+    typingIndicator.style.visibility = "visible";
 
     // Remove the typing indicator after a delay (e.g., 2 seconds)
     setTimeout(function() {
