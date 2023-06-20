@@ -39,6 +39,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+  function formatNumberWithCommas(number) {
+  return number.toLocaleString(undefined, { maximumFractionDigits: 20 });
+}
+
   function isMathematicalEquation(input) {
     // Regular expression to match mathematical equations
     const equationRegex = /^[\d+\-*/%().,\s]+$/; // Updated regex to allow decimal values and commas
