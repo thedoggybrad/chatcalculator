@@ -60,12 +60,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Display each character with a delay
     let index = 0;
-    let delay = 100; // Default delay value
+    let delay = 150; // Default delay value
 
     if (response === "Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ") {
-      delay = 25;
+      delay = 30;
     } else if (response === "Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ") {
-      delay = 25;
+      delay = 30;
     }
 
     function displayCharacter() {
@@ -85,25 +85,49 @@ document.addEventListener("DOMContentLoaded", function() {
     userInput.focus();
   }
 
-  function formatNumberWithCommas(number) {
-    // Convert the number to a string
-    let numberString = number.toString();
+function formatNumberWithCommas(number) {
+  // Convert the number to a string
+  let numberString = number.toString();
 
-    // Split the number into integer and decimal parts
-    let parts = numberString.split(".");
-    let integerPart = parts[0];
-    let decimalPart = parts[1];
+  // Split the number into integer and decimal parts
+  let parts = numberString.split(".");
+  let integerPart = parts[0];
+  let decimalPart = parts[1];
 
-    // Add commas to the integer part
-    let formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-    // Combine the formatted parts and return the result
-    let formattedNumber = formattedIntegerPart;
-    if (decimalPart) {
-      formattedNumber += "." + decimalPart;
-    }
-    return formattedNumber;
+  // Truncate the decimal part to a maximum of 12 decimal places
+  if (decimalPart && decimalPart.length > 12) {
+    decimalPart = decimalPart.slice(0, 12);
   }
+
+  // Round up the last decimal value based on the stripped 13th decimal place
+  if (decimalPart && decimalPart.length === 12) {
+    const lastDigit = parseInt(decimalPart[11], 10);
+    const strippedDecimalPart = decimalPart.slice(0, 11);
+    if (lastDigit >= 5) {
+      // Round up by incrementing the stripped decimal part
+      const roundedDecimalPart = (parseInt(strippedDecimalPart, 10) + 1).toString();
+      decimalPart = roundedDecimalPart;
+    } else {
+      decimalPart = strippedDecimalPart;
+    }
+  }
+
+  // Remove trailing zeros in the decimal part
+  if (decimalPart) {
+    decimalPart = decimalPart.replace(/0+$/, "");
+  }
+
+  // Add commas to the integer part
+  let formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  // Combine the formatted parts and return the result
+  let formattedNumber = formattedIntegerPart;
+  if (decimalPart) {
+    formattedNumber += "." + decimalPart;
+  }
+  return formattedNumber;
+}
+
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
   form.addEventListener("submit", handleSubmit); // Handle default submit (e.g., pressing enter)
