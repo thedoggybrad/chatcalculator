@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function evaluateMathematicalEquation(input) {
     try {
-      const result = math.evaluate(input);
+      const result = new Decimal(input).toString();
       return result;
     } catch (error) {
       throw new Error("Invalid equation");
@@ -50,14 +50,15 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function showResponse(response) {
+    const decimalResponse = new Decimal(response);
+    const formattedResponse = formatNumberWithCommas(decimalResponse);
+
     let newBubble2Container = document.createElement("div");
     newBubble2Container.classList.add("chat-bubble-container", "chat-gpt-bubble-container");
     newBubble2Container.innerHTML = '<div class="profile-picture"><img src="images/avatar.png" height="100%" /></div>';
 
     let newBubble2 = document.createElement("div");
     newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
-
-    const formattedResponse = formatNumberWithCommas(response);
 
     const characters = formattedResponse.split('');
 
@@ -88,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function formatNumberWithCommas(number) {
-    return number.toLocaleString(undefined, { maximumFractionDigits: 20 });
+    return number.toDecimalPlaces(20).toNumber().toLocaleString(undefined, { maximumFractionDigits: 20 });
   }
 
   sendBtn.addEventListener("click", handleSubmit);
