@@ -81,6 +81,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     newBubble2Container.appendChild(newBubble2);
     chatArea.appendChild(newBubble2Container);
+
+    // Store the response in a cookie
+    storeConversation(response);
+
     form.scrollIntoView();
     userInput.focus();
   }
@@ -103,6 +107,59 @@ document.addEventListener("DOMContentLoaded", function() {
       formattedNumber += "." + decimalPart;
     }
     return formattedNumber;
+  }
+
+  function storeConversation(response) {
+    let conversations = getStoredConversations();
+
+    conversations.push(response);
+
+    // Set the conversations in a cookie
+    setCookie('thedoggybrad-chatcalcu', JSON.stringify(conversations), 3650); // Set expiration to 10 years
+  }
+
+  function getStoredConversations() {
+    let conversations = [];
+
+    // Get the conversations from the cookie
+    const conversationsCookie = getCookie('thedoggybrad-chatcalcu');
+
+    if (conversationsCookie) {
+      conversations = JSON.parse(conversationsCookie);
+    }
+
+    return conversations;
+  }
+
+  function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  function getCookie(name) {
+    const nameEQ = name + "=";
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i];
+      while (cookie.charAt(0) === ' ') {
+        cookie = cookie.substring(1, cookie.length);
+      }
+      if (cookie.indexOf(nameEQ) === 0) {
+        return cookie.substring(nameEQ.length, cookie.length);
+      }
+    }
+    return null;
+  }
+
+  // Display previous conversations on page load
+  const conversations = getStoredConversations();
+  for (let i = 0; i < conversations.length; i++) {
+    showResponse(conversations[i]);
   }
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
