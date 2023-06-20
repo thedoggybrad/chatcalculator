@@ -1,64 +1,68 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const userInput = document.getElementById("user-input");
-  const chatArea = document.getElementById("chat");
-  const sendBtn = document.querySelector(".fa-paper-plane");
-  const form = document.getElementById('form');
-  const infoBtn = document.getElementById('infoBtn');
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+    <link rel="manifest" href="manifest.json">
+    <link href="style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <title>ChatCalculator</title>
+    <meta name="description" content="Experience the 4 basic operations calculator in a chat">
 
-  function handleSubmit(event) {
-    event.preventDefault(); // Prevent refresh on form submission
+    <!-- Start SEO Tag -->
+    <meta property="og:title" content="ChatCalculator">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="Experience the 4 basic operations calculator in a chat">
+    <meta property="og:description" content="Experience the 4 basic operations calculator in a chat">
+    <link rel="canonical" href="https://thedoggybrad.github.io/chatcalculator/">
+    <meta property="og:url" content="https://thedoggybrad.github.io/chatcalculator/">
+    <meta property="og:site_name" content="ChatCalculator">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta property="twitter:title" content="ChatCalculator">
+    <meta name="keywords" content="chatcalculator, chat, calculator">
+    <meta name="author" content="TheDoggyBrad">
+    <!-- End SEO tag -->
+</head>
 
-    // If a user submits input, create a new bubble-container and bubble to show the user input in the chat
-    if (userInput.value !== "") {
-      let userString = userInput.value;
+<body>
+    <div id="container">
+        <div class="header">
+            <h1>ChatCalculator</h1>
+            <p>Calculator in a Chat</p>
+        </div>
+        <div id="chatcontainer">
+            <div id="chat">
+                <div class="chat-bubble-container chat-gpt-bubble-container">
+                    <div class="profile-picture">
+                        <img src="images/avatar.png" height="30" alt="Profile Picture">
+                    </div>
+                    <div class="chat-bubble chat-gpt-bubble">
+                        Greetings! This is a basic 4 mathematical operations calculator in a chat. The format for sending your equation is like "9 + 11". To ensure that your equations are well understood, only use the symbols "+", "-", "*", or "/". Avoid adding unnecessary characters to your equation like the equals sign, as the software may refuse to respond. Integers and decimals are supported.<br><br>
+                        Brought to you by <a href="https://github.com/thedoggybrad">TheDoggyBrad</a> and provided under the <a href="https://github.com/thedoggybrad/chatcalculator/blob/main/license">Unlicense License</a>.
+                    </div>
+                </div>
+            </div>
+            <div id="input-area">
+                <div id="input-container">
+                    <form id="form" action="#">
+                        <input type="text" placeholder="Type your equation here" id="user-input" autocomplete="off">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+                <p class="footer">Free and Open-Source Software. ChatCalculator may sometimes produce inaccurate and incorrect results. ChatCalculator June 19, 2023 Version</p>
+            </div>
+        </div>
+    </div>
 
-      let newBubbleContainer = document.createElement("div");
-      newBubbleContainer.classList.add("chat-bubble-container", "user-bubble-container");
-      newBubbleContainer.innerHTML = '<div class="profile-picture"><img src="images/user.png" height="100%" /></div>';
-
-      let newBubble = document.createElement("div");
-      newBubble.classList.add("chat-bubble", "user-bubble");
-      newBubble.innerHTML = userInput.value;
-      newBubbleContainer.appendChild(newBubble);
-      chatArea.appendChild(newBubbleContainer);
-      userInput.value = ""; // Clear the input field
-
-      // Check if the user input is a mathematical equation
-      if (isMathematicalEquation(userString)) {
-        try {
-          // Evaluate the mathematical equation
-          const result = eval(userString);
-          // Show the result in a chat bubble
-          showResponse(result);
-        } catch (error) {
-          showResponse("Sorry, I couldn't evaluate the equation. I only accept the four basic operations using the symbols +, -, * and /. Also do not include a word in your equations.");
-        }
-      } else {
-        showResponse("Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /.");
-      }
-    }
-  }
-
-  function isMathematicalEquation(input) {
-    // Regular expression to match mathematical equations
-    const equationRegex = /^[\d+\-*/%().\s]+$/; // Updated regex to allow decimal values
-    return equationRegex.test(input);
-  }
-
-  function showResponse(response) {
-    let newBubble2Container = document.createElement("div");
-    newBubble2Container.classList.add("chat-bubble-container", "chat-gpt-bubble-container");
-    newBubble2Container.innerHTML = '<div class="profile-picture"><img src="images/avatar.png" height="100%" /></div>';
-
-    let newBubble2 = document.createElement("div");
-    newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
-    newBubble2.innerHTML = response;
-    newBubble2Container.appendChild(newBubble2);
-    chatArea.appendChild(newBubble2Container);
-    form.scrollIntoView();
-    userInput.focus();
-  }
-
-  sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
-  form.addEventListener("submit", handleSubmit); // Handle default submit (e.g., pressing enter)
-});
+    <script src="script.js"></script>
+    <script src="service_worker_check.js"></script>
+    <script src="service_worker_main.js"></script>
+</body>
+</html>
