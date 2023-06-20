@@ -1,9 +1,4 @@
 @keyframes typing-indicator {
-  0% { opacity: 0.2; }
-  20% { opacity: 1; }
-  100% { opacity: 0.2; }
-}
-
 .typing-indicator {
   display: inline-block;
   width: 8px;
@@ -11,8 +6,14 @@
   background-color: #000;
   border-radius: 50%;
   animation: typing-indicator 1s infinite;
+  visibility: hidden;
 }
 
+@keyframes typing-indicator {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
 
 body {
   margin: 0;
