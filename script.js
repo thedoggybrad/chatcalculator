@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
 
     // Modify the response to add the block character at the end
-    newBubble2.innerHTML = response.slice(0, -1) + '<span class="typing-indicator">█</span>';
+    newBubble2.innerHTML = response.slice(0, -1) + '<span class="typing-indicator" style="background-color: #000;">█</span>';
 
     newBubble2Container.appendChild(newBubble2);
     chatArea.appendChild(newBubble2Container);
