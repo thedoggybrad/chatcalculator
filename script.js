@@ -27,21 +27,21 @@ document.addEventListener("DOMContentLoaded", function() {
       if (isMathematicalEquation(userString)) {
         try {
           // Evaluate the mathematical equation
-          const result = eval(userString);
+          const result = eval(userString.replace(/,/g, ''));
           // Show the result in a chat bubble
-          showResponse(result.toString()); // Convert the result to string before displaying
+          showResponse(result); // Pass the result as-is
         } catch (error) {
-          showResponse("Sorry, I couldn't evaluate the equation. I only accept the four basic operations using the symbols +, -, * and /. Also do not include a word in your equations.");
+          showResponse("Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ");
         }
       } else {
-        showResponse("Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /.");
+        showResponse("Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ");
       }
     }
   }
 
   function isMathematicalEquation(input) {
     // Regular expression to match mathematical equations
-    const equationRegex = /^[\d+\-*/%().\s]+$/; // Updated regex to allow decimal values
+    const equationRegex = /^[\d+\-*/%().,\s]+$/; // Updated regex to allow decimal values and commas
     return equationRegex.test(input);
   }
 
@@ -53,12 +53,20 @@ document.addEventListener("DOMContentLoaded", function() {
     let newBubble2 = document.createElement("div");
     newBubble2.classList.add("chat-bubble", "chat-gpt-bubble");
 
+    const formattedResponse = formatNumberWithCommas(response); // Format the response with comma separators
+
     // Split the response into an array of characters
-    const characters = response.split('');
+    const characters = formattedResponse.split('');
 
     // Display each character with a delay
     let index = 0;
-    const delay = 100; // Adjust this value to change the delay between each character
+    let delay = 100; // Default delay value
+
+    if (response === "Sorry, I couldn't evaluate the equation. Something is wrong with your equation! ") {
+      delay = 25;
+    } else if (response === "Sorry, I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ") {
+      delay = 25;
+    }
 
     function displayCharacter() {
       newBubble2.innerHTML += characters[index];
@@ -75,6 +83,26 @@ document.addEventListener("DOMContentLoaded", function() {
     chatArea.appendChild(newBubble2Container);
     form.scrollIntoView();
     userInput.focus();
+  }
+
+  function formatNumberWithCommas(number) {
+    // Convert the number to a string
+    let numberString = number.toString();
+
+    // Split the number into integer and decimal parts
+    let parts = numberString.split(".");
+    let integerPart = parts[0];
+    let decimalPart = parts[1];
+
+    // Add commas to the integer part
+    let formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Combine the formatted parts and return the result
+    let formattedNumber = formattedIntegerPart;
+    if (decimalPart) {
+      formattedNumber += "." + decimalPart;
+    }
+    return formattedNumber;
   }
 
   sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
