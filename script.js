@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
           showResponse("There's a syntax Error! Please fix your equation! ");
         }
       } else {
-        showResponse("It's not an equation! I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ");
+        showResponse("That's not a valid equation! I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ");
       }
     }
   }
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (response === "There's a syntax Error! Please fix your equation! ") {
       delay = 30;
-    } else if (response === "It's not an equation! I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ") {
+    } else if (response === "That's not a valid equation! I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ") {
       delay = 30;
     }
 
