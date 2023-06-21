@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", function() {
           // Show the result in a chat bubble
           showResponse(["The answer for your equation is " + result]); // Pass the result as-is
         } catch (error) {
-          showResponse("There is a syntax Error! Please fix your equation! ");
+          showResponse("Unfortunately, I detected a syntax error on your equation! Kindly check and fix your equation! ");
         }
       } else {
-        showResponse("That is not a valid equation! I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ");
+        showResponse("I am sorry, your entry is not a valid equation! I can only handle the equations using the 4 basic operations by using the symbols +, -, * or /. ");
       }
     }
   }
