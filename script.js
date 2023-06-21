@@ -59,8 +59,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const characters = formattedResponse.split('');
 
     // Display each character with a delay
-    let index = 0;
-    let delay = 40; // Default delay value
+    let index = 0; // Start of the array
+    let delay = 40; // Delay value
 
     function displayCharacter() {
       newBubble2.innerHTML += characters[index];
