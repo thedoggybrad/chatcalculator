@@ -29,12 +29,12 @@ document.addEventListener("DOMContentLoaded", function() {
           // Evaluate the mathematical equation
           const result = eval(userString.replace(/,/g, ''));
           // Show the result in a chat bubble
-          showResponse(["The answer for your equation is " + result]); // Pass the result as-is
+          showResponse(["The answer for your equation is " + result + "."]); // The Result
         } catch (error) {
-          showResponse("Unfortunately, I detected a syntax error on your equation! Kindly check and fix your equation! ");
+          showResponse("Unfortunately, I detected a syntax error on your equation! Kindly check and fix your equation! "); // If Syntax Error
         }
       } else {
-        showResponse("I am sorry, your entry is not a valid equation! I can only handle the equations using the 4 basic operations by using the symbols +, -, * or /. ");
+        showResponse("I am sorry, your entry is not a valid equation! I can only handle the equations using the 4 basic operations by using the symbols +, -, * or /. "); // If Invalid Equation
       }
     }
   }
