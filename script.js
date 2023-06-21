@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
           // Evaluate the mathematical equation
           const result = eval(userString.replace(/,/g, ''));
           // Show the result in a chat bubble
-          showResponse(result); // Pass the result as-is
+          showResponse(["The answer for your equation is " + result]); // Pass the result as-is
         } catch (error) {
           showResponse("There is a syntax Error! Please fix your equation! ");
         }
@@ -60,13 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Display each character with a delay
     let index = 0;
-    let delay = 150; // Default delay value
-
-    if (response === "There is a syntax Error! Please fix your equation! ") {
-      delay = 30;
-    } else if (response === "That is not a valid equation! I can only handle the 4 basic mathematical equations by using the symbols +, -, * or /. ") {
-      delay = 30;
-    }
+    let delay = 40; // Default delay value
 
     function displayCharacter() {
       newBubble2.innerHTML += characters[index];
