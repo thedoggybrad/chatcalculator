@@ -3,7 +3,7 @@
 # ChatCalculator
 A basic calculator that can handle many digits and the 4 basic operations (Addition, Subtraction, Multiplication and Division) via the symbols (+, -, * or /) only.
 
-## Warning/Disclaimer
+## Warning/Disclaimer/Notice
 ChatCalculator might not always guarantee 100% accuracy on the results.
 
 ## Try it now!
