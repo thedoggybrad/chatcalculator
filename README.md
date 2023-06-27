@@ -1,4 +1,4 @@
-<img src="images/avatar.png" alt="LOGO" width="96"  height="96">
+<img src="images/avatar.png" alt="LOGO" width="90"  height="96">
 
 # ChatCalculator
 A basic calculator that can handle many digits and the 4 basic operations (Addition, Subtraction, Multiplication and Division) via the symbols (+, -, * or /) only.
