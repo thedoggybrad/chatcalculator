@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+ "use strict";
   const userInput = document.getElementById("user-input");
   const chatArea = document.getElementById("chat");
   const sendBtn = document.querySelector(".fa-paper-plane");
