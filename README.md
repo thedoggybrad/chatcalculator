@@ -18,7 +18,8 @@ Experience the basic 4 operations calculator in a chat.
 •3,001 + 3,001<br>
 •-3,001 + -7,0001<br><br>
 Usage of words are not allowed and it will be just refused by the software. Also, adding unnecessary characters like the equals sign will cause a refusal from the software.<br>
-It supports integers (positive or negative values), decimal numbers and commas seperating hundreds, thousands, millions, billions and so on.
+It supports integers (positive or negative values), decimal numbers and commas seperating hundreds, thousands, millions, billions and so on.<br>
+Please be reminded that adding zeroes before the first non-zero number (like 099) will causes into a syntax error.
 
 ## Acceptable Spacing Methods
 •3 + 3<br>
@@ -30,7 +31,7 @@ It supports integers (positive or negative values), decimal numbers and commas s
 • 3 +3<br>
 • 3 +3<br>
 •3     +     3<br><br>
-And those that are similar to this methods. Combination of thia are acceptable. Make sure to just follow the "Format of Accepted Equations".
+And those that are similar to this methods. Combination of these are acceptable. Make sure to just follow the "Format of Accepted Equations".
 
 ## A short history
 ✓The journey of ChatCalculator started when I developed DogGPT which is a fork of CatGPT.<br> ✓After some time, using ChatGPT I made a fork of my own DogGPT to become ChatMath.<br> 
