@@ -27,14 +27,14 @@ document.addEventListener("DOMContentLoaded", function() {
       if (isMathematicalEquation(userString)) {
         try {
           // Evaluate the mathematical equation
-          const result = eval(userString.replace(/,/g, ''));
+          const result = evaluateEquation(userString);
           // Show the result in a chat bubble
-          showResponse(["The answer for your equation is " + result + ". "]); // The Result
+          showResponse("The answer for your equation is " + result + ". "); // The Result with comma formatting
         } catch (error) {
-          showResponse("Unfortunately, I detected a syntax error on your equation! Kindly check and fix your equation! "); // If Syntax Error
+          showResponse("Unfortunately, I detected a syntax error in your equation! Kindly check and fix your equation! "); // If Syntax Error
         }
       } else {
-        showResponse("I am sorry, your entry is not a valid equation! I can only handle the equations using the 4 basic operations by using the symbols +, -, * or /. "); // If Invalid Equation
+        showResponse("I'm sorry, your entry is not a valid equation! I can only handle equations using the four basic operations: +, -, *, or /. "); // If Invalid Equation
       }
     }
   }
@@ -43,6 +43,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Regular expression to match mathematical equations
     const equationRegex = /^[\d+\-*/%().,\s]+$/; // Updated regex to allow decimal values and commas
     return equationRegex.test(input);
+  }
+
+  function evaluateEquation(equation) {
+    // Remove commas from the equation string before evaluation
+    const equationWithoutCommas = equation.replace(/,/g, '');
+    return eval(equationWithoutCommas);
   }
 
   function showResponse(response) {
@@ -75,54 +81,52 @@ document.addEventListener("DOMContentLoaded", function() {
 
     newBubble2Container.appendChild(newBubble2);
     chatArea.appendChild(newBubble2Container);
-    form.scrollIntoView();
-    userInput.focus();
+    form.scrollIntoView(false);
   }
 
-function formatNumberWithCommas(number) {
-  // Convert the number to a string
-  let numberString = number.toString();
+  function formatNumberWithCommas(number) {
+    // Convert the number to a string
+    let numberString = number.toString();
 
-  // Split the number into integer and decimal parts
-  let parts = numberString.split(".");
-  let integerPart = parts[0];
-  let decimalPart = parts[1];
+    // Split the number into integer and decimal parts
+    let parts = numberString.split(".");
+    let integerPart = parts[0];
+    let decimalPart = parts[1];
 
-  // Truncate the decimal part to a maximum of 12 decimal places
-  if (decimalPart && decimalPart.length > 12) {
-    decimalPart = decimalPart.slice(0, 12);
-  }
-
-  // Round up the last decimal value based on the stripped 13th decimal place
-  if (decimalPart && decimalPart.length === 12) {
-    const lastDigit = parseInt(decimalPart[11], 10);
-    const strippedDecimalPart = decimalPart.slice(0, 11);
-    if (lastDigit >= 5) {
-      // Round up by incrementing the stripped decimal part
-      const roundedDecimalPart = (parseInt(strippedDecimalPart, 10) + 1).toString();
-      decimalPart = roundedDecimalPart;
-    } else {
-      decimalPart = strippedDecimalPart;
+    // Truncate the decimal part to a maximum of 12 decimal places
+    if (decimalPart && decimalPart.length > 12) {
+      decimalPart = decimalPart.slice(0, 12);
     }
+
+    // Round up the last decimal value based on the stripped 13th decimal place
+    if (decimalPart && decimalPart.length === 12) {
+      const lastDigit = parseInt(decimalPart[11], 10);
+      const strippedDecimalPart = decimalPart.slice(0, 11);
+      if (lastDigit >= 5) {
+        // Round up by incrementing the stripped decimal part
+        const roundedDecimalPart = (parseInt(strippedDecimalPart, 10) + 1).toString();
+        decimalPart = roundedDecimalPart;
+      } else {
+        decimalPart = strippedDecimalPart;
+      }
+    }
+
+    // Remove trailing zeros in the decimal part
+    if (decimalPart) {
+      decimalPart = decimalPart.replace(/0+$/, "");
+    }
+
+    // Add commas to the integer part
+    let formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Combine the formatted parts and return the result
+    let formattedNumber = formattedIntegerPart;
+    if (decimalPart) {
+      formattedNumber += "." + decimalPart;
+    }
+    return formattedNumber;
   }
 
-  // Remove trailing zeros in the decimal part
-  if (decimalPart) {
-    decimalPart = decimalPart.replace(/0+$/, "");
-  }
-
-  // Add commas to the integer part
-  let formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-  // Combine the formatted parts and return the result
-  let formattedNumber = formattedIntegerPart;
-  if (decimalPart) {
-    formattedNumber += "." + decimalPart;
-  }
-  return formattedNumber;
-}
-
-
-  sendBtn.addEventListener("click", handleSubmit); // Handle clicks to the submit button
+  sendBtn.addEventListener("click", handleSubmit); // Handle clicks on the submit button
   form.addEventListener("submit", handleSubmit); // Handle default submit (e.g., pressing enter)
 });
