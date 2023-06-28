@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
           // Evaluate the mathematical equation
           const result = evaluateEquation(userString);
           // Show the result in a chat bubble
-          showResponse("The answer for your equation is " + result + ". "); // The Result with comma formatting
+          showResponse("The answer for your equation is " + result); // The Result with comma formatting
         } catch (error) {
           showResponse("Unfortunately, I detected a syntax error in your equation! Kindly check and fix your equation! "); // If Syntax Error
         }
