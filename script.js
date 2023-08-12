@@ -30,9 +30,9 @@ document.addEventListener("DOMContentLoaded", function() {
           // Evaluate the mathematical equation
           const result = evaluateEquation(userString);
           // Show the result in a chat bubble
-          showResponse("The answer for your equation is " + result); // The Result with comma formatting
+          showResponse("The answer for your equation is " + result +"."); // The Result with comma formatting
         } catch (error) {
-          showResponse("Unfortunately, I detected a syntax error in your equation! Kindly check and fix your equation! "); // If Syntax Error
+          showResponse("Unfortunately, I detected a syntax error in your equation! Kindly check and fix your equation, then try it again! "); // If Syntax Error
         }
       } else {
         showResponse("I'm sorry, your entry is not a valid equation! I can only handle equations using the four basic operations: +, -, *, or /. "); // If Invalid Equation
