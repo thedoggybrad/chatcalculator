@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", function() {
- "use strict";
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
   const userInput = document.getElementById("user-input");
   const chatArea = document.getElementById("chat");
   const sendBtn = document.querySelector(".fa-paper-plane");
@@ -27,22 +27,25 @@ document.addEventListener("DOMContentLoaded", function() {
       // Check if the user input is a mathematical equation
       if (isMathematicalEquation(userString)) {
         try {
-          // Evaluate the mathematical equation
-          const result = evaluateEquation(userString);
+          // Replace '^' with '**' for exponential operations
+          const modifiedEquation = userString.replace(/\^/g, '**');
+          
+          // Evaluate the modified mathematical equation
+          const result = evaluateEquation(modifiedEquation);
           // Show the result in a chat bubble
           showResponse("The answer for your equation is " + result); // The Result with comma formatting
         } catch (error) {
           showResponse("Unfortunately, I detected a syntax error in your equation! Kindly check and fix your equation, then try it again! "); // If Syntax Error
         }
       } else {
-        showResponse("I'm sorry, your entry is not a valid equation! I can only handle equations using the four basic operations: +, -, *, or /. "); // If Invalid Equation
+        showResponse("I'm sorry, your entry is not a valid equation! I can only handle equations using the four basic operations and exponents: +, -, *, /, or ^. "); // If Invalid Equation
       }
     }
   }
 
   function isMathematicalEquation(input) {
     // Regular expression to match mathematical equations
-    const equationRegex = /^[\d+\-*/%().,\s]+$/; // Updated regex to allow decimal values and commas
+    const equationRegex = /^[\d+\-*/%^().,\s]+$/; // Updated regex to allow exponential operations
     return equationRegex.test(input);
   }
 
