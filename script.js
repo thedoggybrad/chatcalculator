@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Display each character with a delay
     let index = 0; // Start of the array
-    let delay = 40; // Delay value
+    let delay = 20; // Delay value
 
     function displayCharacter() {
       newBubble2.innerHTML += characters[index];
